@@ -7,7 +7,12 @@ def register():
         re_password = input('请确认密码:').strip()
 
         if password == re_password:
-            admin_interface.admin_register_interface(username,password)
+            flag,msg = admin_interface.admin_register_interface(username,password)
+            if flag:
+                print('注册成功')
+                break
+            else:
+                print('用户已存在,请重新输入')
 
         else:
             print('两次输入的密码不一致')
