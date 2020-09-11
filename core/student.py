@@ -1,3 +1,8 @@
+from lib import common
+
+
+student_info = {'user':None}
+
 
 def register():
     pass
@@ -5,12 +10,15 @@ def register():
 def login():
     pass
 
+@common.auth('student')
 def choice_school():
     pass
 
+@common.auth('student')
 def choice_course():
     pass
 
+@common.auth('student')
 def check_score():
     pass
 

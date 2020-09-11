@@ -1,10 +1,14 @@
 from interface import admin_interface
+from lib import common
+
+admin_info = {'user':None}
 
 def register():
     while True:
         username = input('请输入用户名:').strip()
         password = input('请输入密码:').strip()
         re_password = input('请确认密码:').strip()
+
 
         if password == re_password:
             flag,msg = admin_interface.admin_register_interface(username,password)
@@ -19,14 +23,35 @@ def register():
             continue
 
 def login():
-    pass
+    while True:
+        username = input('请输入用户名:').strip()
+        password = input('请输入密码:').strip()
+        flag,msg =  admin_interface.admin_login_interface(username,password)
+        if flag:
+            print(msg)
+            admin_info['user'] = username
+            break
+        else:
+            print(msg)
 
+@common.auth('admin')
 def create_school():
-    pass
+    while True:
+        school_name = input('请输入学校名称:').strip()
+        school_addr = input('请输入学校地址:').strip()
+        flag,msg = admin_interface.create_school_interface(school_name,school_addr,admin_info.get('user'))
+        if flag:
+            print(msg)
+            break
+        else:
+            print(msg)
 
+@common.auth('admin')
 def create_course():
     pass
 
+
+@common.auth('admin')
 def create_teacher():
     pass
 
