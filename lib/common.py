@@ -9,13 +9,13 @@ def auth(role):
                     return res
                 else:
                     admin.login()
-            elif role == 'studet':
+            elif role == 'student':
                 if student.student_info['user']:
                     res = func(*args,**kwargs)
                     return res
                 else:
                     student.login()
-            elif role == teacher:
+            elif role == 'teacher':
                 if teacher.teacher_info['user']:
                     res = func(*args,**kwargs)
                     return res

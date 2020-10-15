@@ -1,4 +1,5 @@
 from interface import admin_interface
+from interface import common_interface
 from lib import common
 
 admin_info = {'user':None}
@@ -48,12 +49,49 @@ def create_school():
 
 @common.auth('admin')
 def create_course():
-    pass
+    while True:
+        flag,school_list_msg = common_interface.get_all_school_interface()
+        if not flag:
+            print(school_list_msg)
+            break
+        for index,school_name in enumerate(school_list_msg):
+            print(f'编号:{index} 学校名称:{school_name}')
+
+        choice = input('请输入学校编号：').strip()
+        if not choice.isdigit():
+            print('请输入数字')
+            continue
+        choice = int(choice)
+
+        if choice not in range(len(school_list_msg)):
+            print('请输入正确编号')
+            continue
+        school_name = school_list_msg[choice]
+        course_name = input('请输入需要创建的课程名称：').strip()
+
+        flag,msg = admin_interface.create_course_interface(school_name,course_name,admin_info.get('user'))
+
+        if flag:
+            print(msg)
+            break
+        else:
+            print(msg)
 
 
 @common.auth('admin')
 def create_teacher():
-    pass
+    while True:
+        teacher_name = input('请输入老师的名字:').strip()
+        flag,msg = admin_interface.create_teacher_interface(teacher_name,admin_info.get('user'))
+        if flag:
+            print(msg)
+            break
+        else:
+            print(msg)
+
+
+
+
 
 func_dic = {
     '1': register,
